@@ -23,6 +23,7 @@ class Task(object):
         self.item = item
 
     def get_habit(self):
+        # —\sDay:\s\*\*(\d+)\*\*
         return re.search(r'\[day\s(\d+)\]', self.item['content'])
 
     def is_habit(self):
@@ -56,7 +57,7 @@ class Task(object):
         """
         Parse and get current stream from the pattern.
 
-        Pattern: [day X]
+        Pattern: — Day: **N**
         :return: Current streak
         """
         habit = self.get_habit()
@@ -68,7 +69,7 @@ class Task(object):
         :param streak: Number of days
         :return: None
         """
-        days = '[day {}]'.format(streak)
+        days = '— Day: **{}**'.format(streak)
         text = re.sub(r'\[day\s(\d+)\]', days, self.item['content'])
         self.item.update(content=text)
 
