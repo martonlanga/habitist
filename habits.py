@@ -23,8 +23,7 @@ class Task(object):
         self.item = item
 
     def get_habit(self):
-        # —\sDay:\s\*\*(\d+)\*\*
-        return re.search(r'\[day\s(\d+)\]', self.item['content'])
+        return re.search(r'—\sDay:\s\*\*(\d+)\*\*', self.item['content'])
 
     def is_habit(self):
         """
@@ -70,7 +69,7 @@ class Task(object):
         :return: None
         """
         days = '— Day: **{}**'.format(streak)
-        text = re.sub(r'\[day\s(\d+)\]', days, self.item['content'])
+        text = re.sub(r'—\sDay:\s\*\*(\d+)\*\*', days, self.item['content'])
         self.item.update(content=text)
 
     def increase(self, n=1):
